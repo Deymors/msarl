@@ -1,1 +1,1 @@
-from gym_envs.envs.MSAGym import MSAEnv
+from gym_env.envs.MSAEnv import MSAEnv

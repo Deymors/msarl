@@ -10,6 +10,7 @@ from gym.utils import seeding
 
 
 class MSAEnv(gym.Env):
+    metadata = {'render.modes': ['human']}
 
     def __init__(self):
         pass
