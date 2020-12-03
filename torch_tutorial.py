@@ -16,20 +16,6 @@ import torch.nn.functional as F
 import torchvision.transforms as T
 
 
-env = gym.make('CartPole-v0').unwrapped
-
-# set up matplotlib
-is_ipython = 'inline' in matplotlib.get_backend()
-if is_ipython:
-    from IPython import display
-
-# if gpu is to be used
-device = torch.device("cpu")
-
-Transition = namedtuple('Transition',
-                        ('state', 'action', 'next_state', 'reward'))
-
-
 class ReplayMemory(object):
 
     def __init__(self, capacity):
@@ -80,11 +66,6 @@ class DQN(nn.Module):
         return self.head(x.view(x.size(0), -1))
 
 
-resize = T.Compose([T.ToPILImage(),
-                    T.Resize(40, interpolation=Image.CUBIC),
-                    T.ToTensor()])
-
-
 def get_cart_location(screen_width):
     world_width = env.x_threshold * 2
     scale = screen_width / world_width
@@ -116,9 +97,26 @@ def get_screen():
     return resize(screen).unsqueeze(0).to(device)
 
 
-env.reset()
-plt.figure()
-plt.imshow(get_screen().cpu().squeeze(0).permute(1, 2, 0).numpy(),
-           interpolation='none')
-plt.title('Example extracted screen')
-plt.show()
+if __name__ == "__main__":
+    env = gym.make('CartPole-v0').unwrapped
+
+    # set up matplotlib
+    is_ipython = 'inline' in matplotlib.get_backend()
+    if is_ipython:
+        from IPython import display
+
+    # if gpu is to be used
+    device = torch.device("cpu")
+
+    Transition = namedtuple('Transition',
+                            ('state', 'action', 'next_state', 'reward'))
+
+    resize = T.Compose([T.ToPILImage(),
+                        T.Resize(40, interpolation=Image.CUBIC),
+                        T.ToTensor()])
+    env.reset()
+    plt.figure()
+    plt.imshow(get_screen().cpu().squeeze(0).permute(1, 2, 0).numpy(),
+               interpolation='none')
+    plt.title('Example extracted screen')
+    plt.show()
