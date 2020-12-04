@@ -12,8 +12,16 @@ from gym.utils import seeding
 class MSAEnv(gym.Env):
     metadata = {'render.modes': ['human']}
 
-    def __init__(self):
-        pass
+    def __init__(self, sequences):
+        '''
+
+        :param sequences: nucleic acid sequence
+        :type sequences: numpy.array
+        '''
+        self.state = sequences  # passed as kwargs in msarl/gym_env/__init__.py register calls
+        num_rows, num_cols = sequences.shape
+        self.action_space = np.array([(i//sequences, i%num_cols) for i in range(num_rows * num_cols)]) # coordinate at which we add a gap
+        self.observation_space = None  #TODO
 
     # abstract method from parent gym.Env
     def step(self, action):
@@ -24,9 +32,5 @@ class MSAEnv(gym.Env):
         pass
 
     # abstract method from parent gym.Env
-    def render(self, mode='human'):
+    def render(self, mode='human'):  # third option: close=False
         pass
-
-
-if __name__ == "__main__":
-    env = gym.make("MSAEnv-v0")
