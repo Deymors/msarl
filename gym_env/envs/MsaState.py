@@ -45,6 +45,16 @@ class MsaState:
                 self.sequences[action.seq_num][action.gap_position] -= 1
                 self.sequences_lens[action.seq_num] -= 1
 
+    def get_valid_actions(self):
+        actions = []
+        for i in range(self.num_sequences):
+            for j in range(self.sequences_lens[i]):
+                add_action = MsaAction(i, j, True)
+                actions.append(add_action)
+                sub_action = MsaAction(i, j, False)
+                if self.is_valid_action(sub_action):
+                    actions.append(sub_action)
+
     def calculate_score(self):
         score = 0
         indexes = np.zeros(self.num_sequences)
