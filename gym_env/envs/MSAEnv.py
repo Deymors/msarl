@@ -7,6 +7,7 @@ from gym.utils import seeding
 
 
 # gym.Env parent class: https://github.com/openai/gym/blob/master/gym/core.py
+from gym_env.envs.MsaAction import MsaAction
 
 
 class MSAEnv(gym.Env):
@@ -23,7 +24,7 @@ class MSAEnv(gym.Env):
         self.observation_space = None  #TODO
 
     # abstract method from parent gym.Env
-    def step(self, action):
+    def step(self, action: MsaAction):
         pass
 
     # abstract method from parent gym.Env

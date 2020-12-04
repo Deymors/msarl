@@ -1,0 +1,7 @@
+numpy~=1.19.3
+gym~=0.10.11
+setuptools~=45.2.0
+matplotlib~=3.3.2
+torch~=1.7.0
+torchvision~=0.8.1
+Pillow~=6.2.2
