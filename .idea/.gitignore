@@ -1,3 +1,5 @@
 # Default ignored files
 /shelf/
 /workspace.xml
+../gym_env/__pycache__/
+../gym_env/envs/__pycache__/
